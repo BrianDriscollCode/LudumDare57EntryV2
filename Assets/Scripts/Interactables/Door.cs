@@ -10,6 +10,9 @@ public class Door : MonoBehaviour, IInteractable
     LevelManager levelManager;
 
     [SerializeField] int neededOrbsToOpen;
+    [SerializeField] AudioSource audioSource;
+
+    bool activated = false;
 
     void Start()
     {
@@ -46,9 +49,12 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (activated) return;
+        activated = true;
         Debug.Log("Interacted");
+        audioSource.Play();
         animator.Play("Open");
-        StartCoroutine(DisableColliderAfterDelay(0.5f));
+        StartCoroutine(DisableColliderAfterDelay(0.7f));
     }
 
     private IEnumerator DisableColliderAfterDelay(float delay)
@@ -59,6 +65,7 @@ public class Door : MonoBehaviour, IInteractable
         {
             boxCollider2D.enabled = false;
             Debug.Log("Collision Collider disabled after delay");
+            Destroy(gameObject);
         }
     }
 }

@@ -17,7 +17,7 @@ public class HandleHelperGhostAnimations : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         animator = GetComponent<Animator>();
-        animator.enabled = false;
+        animator.Play("Idle_Ghost");
     }   
 
     public void OnAnimationComplete()

@@ -14,6 +14,8 @@ public class TilemapLayerManager : MonoBehaviour
 
     LevelManager levelManager;
 
+    [SerializeField] AudioSource audioSource;
+
 
     bool cooldown = false;
 
@@ -95,7 +97,9 @@ public class TilemapLayerManager : MonoBehaviour
         }
 
         currentIndex = index;
-        
+        audioSource.Play();
+
+
         if (currentIndex == 0)
         {
             levelManager.currentRealmState = LevelManager.RealmState.ONE;

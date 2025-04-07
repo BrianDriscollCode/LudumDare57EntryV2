@@ -7,6 +7,8 @@ public class Orb : MonoBehaviour
     LevelManager levelManager;
     BoxCollider2D BoxCollider2D;
 
+    bool inUse = false;
+
     private void Start()
     {
         BoxCollider2D = GetComponent<BoxCollider2D>();
@@ -16,8 +18,9 @@ public class Orb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !inUse)
         {
+            inUse = true;
             levelManager.IncrementOrb();
             Destroy(gameObject);
         }

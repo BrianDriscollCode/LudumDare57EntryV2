@@ -10,6 +10,7 @@ public class HandlePlayerAnimations : MonoBehaviour
     LevelManager levelManager;
 
     bool resetToLastAnim = false;
+    [SerializeField] AudioSource audioSource;
 
     enum playerAnimState
     {
@@ -20,6 +21,7 @@ public class HandlePlayerAnimations : MonoBehaviour
 
     private void Start()
     {
+        audioSource.enabled = false;
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
@@ -34,6 +36,7 @@ public class HandlePlayerAnimations : MonoBehaviour
             {
                 animator.Play("IdleAnim");
                 resetToLastAnim = true;
+                audioSource.enabled=false;
             }
 
             return;
@@ -43,25 +46,42 @@ public class HandlePlayerAnimations : MonoBehaviour
         if (player.currentPlayerState == Player.PlayerState.INDIALOG)
         {
             animator.Play("IdleAnim");
+            audioSource.enabled=false;
             return;
         }
 
         bool isMovingLeft = Input.GetKey(KeyCode.A);
         bool isMovingRight = Input.GetKey(KeyCode.D);
 
-        if (isMovingLeft)
+        if (isMovingLeft && player.isGrounded)
         {
             animator.Play("RunAnim");
             transform.localScale = new Vector3(-1, 1, 1);
+            //audioSource.Play();
         }
-        else if (isMovingRight)
+        else if (isMovingRight && player.isGrounded)
         {
             animator.Play("RunAnim");
             transform.localScale = new Vector3(1, 1, 1);
+            //audioSource.Play();
+        }
+        else if (!player.isGrounded)
+        {
+            animator.Play("Jump");
         }
         else
         {
             animator.Play("IdleAnim");
+
+        }
+
+        if ((isMovingLeft || isMovingRight) && player.isGrounded)
+        {
+            audioSource.enabled = true;
+        }
+        else
+        {
+            audioSource.enabled = false;
         }
     }
 }
