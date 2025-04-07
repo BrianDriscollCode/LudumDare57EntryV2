@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 
 
-public class DialogRunner : MonoBehaviour
+public class DialogRunner2 : MonoBehaviour
 {
     [SerializeField] private GameObject[] panels;
     private int currentPanelIndex = -1;
@@ -55,23 +55,11 @@ public class DialogRunner : MonoBehaviour
         {
             panels[currentPanelIndex].SetActive(true);
         }
-        else if (levelManager.helperGhostGone && !levelManager.lastCutScene)
-        {
-            player.currentPlayerState = Player.PlayerState.INGAME;
-        }
-        // ****************** WE NEED TO FIGURE OUT HOW TO TIRGGER LAST CUTSCENE
-        /*else if (!levelManager.lastCutScene)
-        {
-            HelperGhostAnimator2.enabled = true;
-            HelperGhostAnimator2.Play("Dissappear");
-        }*/
         else
         {
-            canRunDialog = false; // end of dialog
-            HelperGhostAnimator.enabled = true;
-            HelperGhostAnimator.Play("Disappear");
-            levelManager.unlockedRealms[2] = true;
+            lastSceneManager.StartLastCutScene();
         }
+        
     }
 
     private void SetAllPanelsInactive()

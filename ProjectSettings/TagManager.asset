@@ -15,6 +15,7 @@ TagManager:
   - Layer5
   - NumberPanel
   - HelperGhost2
+  - LastSceneManager
   layers:
   - Default
   - TransparentFX

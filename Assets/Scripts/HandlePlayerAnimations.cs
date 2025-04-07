@@ -9,6 +9,8 @@ public class HandlePlayerAnimations : MonoBehaviour
     Player player;
     LevelManager levelManager;
 
+    bool resetToLastAnim = false;
+
     enum playerAnimState
     {
         LEFT,
@@ -25,6 +27,18 @@ public class HandlePlayerAnimations : MonoBehaviour
 
     private void Update()
     {
+
+        if (levelManager.lastCutScene)
+        {
+            if (!resetToLastAnim)
+            {
+                animator.Play("IdleAnim");
+                resetToLastAnim = true;
+            }
+
+            return;
+        }
+
 
         if (player.currentPlayerState == Player.PlayerState.INDIALOG)
         {

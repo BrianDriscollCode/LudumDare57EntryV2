@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public bool lastCutScene = false;
+
     public bool endGameState = false;
     [SerializeField] PostProcessing postProcessing;
     bool inEndGameState = false;
@@ -30,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+
         numberPanel = GameObject.FindGameObjectWithTag("NumberPanel").GetComponent<NumberPanel>();
 
         audioSource = GetComponent<AudioSource>();

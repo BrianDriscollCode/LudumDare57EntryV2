@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+        Debug.Log("Current Player State" + currentPlayerState);
         if (currentPlayerState == PlayerState.INGAME)
         {
             // Ground check
